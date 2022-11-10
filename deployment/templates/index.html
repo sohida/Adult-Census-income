@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+	<meta charset="UTF-8">
+	<title>ML API</title>
+	<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+	<style>
+		.center {
+		  margin: auto;
+		  width: 60%;
+		  border: 3px solid #73AD21;
+		  /* padding: 10px; */
+		  padding: 70px 0;
+		  text-align: center;
+		}
+		.select {
+			width: 180px;
+			height: 60px;
+			line-height: 50px;
+			padding: 5px
+			}
+		#shadow {
+		border: 1px solid;
+		padding: 10px;
+		box-shadow: 5px 10px #B3B0B0;
+			}
+	</style>
+
+  
+</head>
+
+<body>
+<div class="center" id="shadow" style="border-radius:15px 50px;">
+	<div  class="login">
+		<h1 >Income Prediction</h1>
+
+		<!-- Main Input For Receiving Query to our ML -->
+		<form action="{{ url_for('predict')}}"method="post" >
+
+			<input type="text" name="age" placeholder="Age" required="required"  style="margin: 10px;width:166px;height:45px;padding:5px;border-radius:8px;"   />
+		<select  required name="workclass" class ="select" style="margin: 10px;border-radius:8px;" >
+			<option value="" disabled selected hidden>Work-class</option>
+			<option  label="private">Private</option>
+			<option  label="Incorporated self employee">Self-emp-inc</option>
+			<option  label="Unincorporated self employee">Self-emp-not-inc</option>
+			<option  label="Local government">Local-gov</option>
+			<option  label="State government">State-gov</option>
+			<option  label="Federal government">Federal-gov</option>
+			<option  label="Without pay">Without-pay</option>
+		  </select></br>
+
+			<select  required name="education_level" class ="select" style="margin: 10px;border-radius:8px;">
+				<option value="" disabled selected hidden>Education level</option>
+				<option  label="High school graduate">HS-grad</option>
+				<option  label="College">Some-college</option>
+				<option  label="Bachelors">Bachelors</option>
+				<option  label="Masters">Masters</option>
+				<option  label="Prof-school">Prof-school</option>
+				<option  label="Doctorate">Doctorate</option>
+				<option  label="School">School</option>
+				<option  label="Assoc-voc">Assoc-voc</option>
+				<option  label="Assoc-acdm">Assoc-acdm</option>
+			</select>
+			<input type="text" name="dducation-num" placeholder="Number of education years" required="required" style="margin: 10px;width:166px;height:45px;padding:5px;border-radius:8px;"/></br>
+
+
+
+			<select  required name="marital-status" class ="select" style="margin: 10px;border-radius:8px;">
+				<option value="" disabled selected hidden>Marital status</option>
+				<option  label="Married civilian spouse">Married-civ-spouse</option>
+				<option  label="Never married">Never-married</option>
+				<option  label="Divorced">Divorced</option>
+				<option  label="Separated">Separated</option>
+				<option  label="Widowed">Widowed</option>
+				<option  label="Married spouse in armed forces">Married-AF-spouse</option>
+				<option  label="Married-spouse-absent">Married-spouse-absent</option>
+			</select>
+
+			<select  required name="occupation" class ="select" style="margin: 10px;border-radius:8px;">
+				<option value="" disabled selected hidden>Occupation</option>
+				<option  label="Armed-Forces">Armed-Forces</option>
+				<option  label="Prof-specialty">Prof-specialty</option>
+				<option  label="Sales">Sales</option>
+				<option  label="Transport-moving">Transport-moving</option>
+				<option  label="Farming-fishing">Farming-fishing</option>
+				<option  label="Tech-support">Tech-support</option>
+				<option  label="Priv-house-serv">Priv-house-serv</option>
+				<option  label="Protective-serv">Protective-serv</option>
+				<option  label="Craft-repair">Craft-repair</option>
+				<option  label="Exec-managerial">Exec-managerial</option>
+				<option  label="Adm-clerical">Adm-clerical</option>
+				<option  label="Machine-op-inspct">Machine-op-inspct</option>
+				<option  label="Handlers-cleaners">Handlers-cleaners</option>
+				<option  label="Other-service">Other-service</option>
+			</select></br>
+
+
+			<select  required name="relationship" class ="select" style="margin: 10px;border-radius:8px;">
+				<option value="" disabled selected hidden>relationship</option>
+				<option  label="Husband">Husband</option>
+				<option  label="Not in family">Not-in-family</option>
+				<option  label="Own child">Own-child</option>
+				<option  label="Unmarried">Unmarried</option>
+				<option  label="Wife">Wife</option>
+				<option  label="Other-relative">Other-relative</option>
+			</select>
+
+
+			<select  required name="Race" class ="select" style="margin: 10px;border-radius:8px;">
+				<option value="" disabled selected hidden>Race</option>
+				<option  label="White">White</option>
+				<option  label="Black">Black</option>
+				<option  label="Asian-Pac-Islander">Asian-Pac-Islander</option>
+				<option  label="Amer-Indian-Eskimo">Amer-Indian-Eskimo</option>
+				<option  label="Other">Other</option>
+			</select></br>
+
+
+
+			<select  required name="sex"  class ="select" style="margin: 10px;border-radius:8px;">
+				<option value="" disabled selected hidden>Gender</option>
+				<option  label="Male">Male</option>
+				<option  label="Female">Female</option>
+				
+			</select>
+			<input type="text" name="capital-gain" placeholder="Capital gain" required="required" style="margin: 10px;width:166px;height:45px;padding:5px;border-radius:8px;" /></br>
+
+
+			<input type="text" name="capital-loss" placeholder="Capital loss" required="required"style="margin: 10px;width:166px;height:45px;padding:5px;border-radius:8px;"  />
+			<input type="text" name="hours-per-week" placeholder="Working hours per week" required="required" style="margin: 10px;width:166px;height:45px;padding:5px;border-radius:8px;" /></br>
+
+
+
+			<select  required name="native-country" class ="select" style="margin: 10px;border-radius:8px;">
+				<option value="" disabled selected hidden>Native country</option>
+				<option  label="United-States">United-States</option>
+				<option  label="Mexico">Mexico</option>
+				<option  label="Philippines">Philippines</option>
+				<option  label="Germany">Germany</option>
+				<option  label="Puerto-Rico">Puerto-Rico</option>
+				<option  label="Canada">Canada</option>
+				<option  label="El-Salvador">El-Salvador</option>
+				<option  label="India">India</option>
+				<option  label="Cuba">Cuba</option>
+				<option  label="England">England</option>
+				<option  label="China">China</option>
+				<option  label="Jamaica">Jamaica</option>
+				<option  label="South">South</option>
+				<option  label="Italy">Italy</option>
+				<option  label="Dominican-Republic">Dominican-Republic</option>
+				<option  label="Japan">Japan</option>
+				<option  label="Guatemala">Guatemala</option>
+				<option  label="Vietnam">Vietnam</option>
+				<option  label="Columbia">Columbia</option>
+				<option  label="Poland">Poland</option>
+				<option  label="Haiti">Haiti</option>
+				<option  label="Portugal">Portugal</option>
+				<option  label="Iran">Iran</option>
+				<option  label="Taiwan">Taiwan</option>
+				<option  label="Greece">Greece</option>
+				<option  label="Nicaragua">Nicaragua</option>
+				<option  label="Peru">Peru</option>
+				<option  label="Ecuador">Ecuador</option>
+				<option  label="Ireland">Ireland</option>
+				<option  label="FranceFrance">Female</option>
+				<option  label="Thailand">Thailand</option>
+				<option  label="Hong">Hong</option>
+				<option  label="Cambodia">Cambodia</option>
+				<option  label="Trinadad&Tobago">Trinadad&Tobago</option>
+				<option  label="Yugoslavia">Yugoslavia</option>
+				<option  label="Outlying-US(Guam-USVI-etc)">Outlying-US(Guam-USVI-etc)</option>
+				<option  label="Laos">Laos</option>
+				<option  label="Scotland">Scotland</option>
+				<option  label="Honduras">Honduras</option>
+				<option  label="Hungary">Hungary</option>
+				<option  label="Holand-Netherlands">Holand-Netherlands</option>
+			
+			</select>
+
+			</br>
+			
+
+			<button type="submit" class="btn btn-primary btn-block btn-large" id="shadow" style="margin: 10px;border-radius:9px;width:166px;height:45px;padding:5px;background: darkcyan;color:white;">Predict</button>
+		</form>
+
+	<br>
+	
+	
+		{% if  prediction_text  == 0 %} 
+			<div id="shadow" style="background: rgb(167, 42, 4);border-radius:15px 50px;">
+				<h4>Unfortunately ,this person can not be a donor for the charity</h4>
+			</div>
+			{%endif%}
+		  {%if  prediction_text  == 1%}
+			<div id="shadow" style="background: rgb(7, 164, 33);border-radius:15px 50px;">
+				<h4>This person can be a donor for the charity</h4>
+			</div>
+
+		  {%endif%}
+		  <!-- {{ prediction_text }} -->
+
+</div>
+ </div>
+
+
+</body>
+</html>
